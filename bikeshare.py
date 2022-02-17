@@ -104,7 +104,12 @@ def time_stats(df):
     else:
         com_month = month
     print('The most common month is',com_month.title())
-    
+    # display the most common day of week
+    if day == 'all':
+        com_day = days_list[df['day_of_week'].mode()[0]-1]
+    else:
+        com_day = day
+    print('The most common day is',com_day.title())
     
 city, month, day = filters()
 df = load_data(city, month, day)
