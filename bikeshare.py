@@ -62,5 +62,8 @@ def filters():
                 print('No day filter selected')
                 break
             else:
-                print('Not a valid input.')      
+                print('Not a valid input.')
+
+    return city, month, day
+      
 filters()
