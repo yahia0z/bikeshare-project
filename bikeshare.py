@@ -28,6 +28,7 @@ def filters():
                 break
             else:
                 print('Not a valid city.')
+    
     # get user input for month
     month_list = ['january', 'february', 'march', 'april', 'may', 'june']
     print('Please select a month to filter by.')
@@ -45,5 +46,21 @@ def filters():
                 break
             else:
                 print('Not a valid input.')
-            
+
+    # get user input for day
+    days_list = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+    while True:
+        try:
+            day = input('Enter a day to filter by or \'all\' for all days:\n').lower()
+        except ValueError:
+            print('Not a valid input.')
+        else:
+            if day in days_list:
+                print('Selected day is: ', day.title())
+                break
+            elif day == 'all':
+                print('No day filter selected')
+                break
+            else:
+                print('Not a valid input.')      
 filters()
