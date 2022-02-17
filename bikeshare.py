@@ -5,6 +5,8 @@ import numpy as np
 data = { 'chicago': 'chicago.csv',
          'new york city': 'new_york_city.csv',
          'washington': 'washington.csv' }
+month_list = ['january', 'february', 'march', 'april', 'may', 'june']
+days_list = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 
 def filters():
     """
@@ -30,7 +32,6 @@ def filters():
                 print('Not a valid city.')
     
     # get user input for month
-    month_list = ['january', 'february', 'march', 'april', 'may', 'june']
     print('Please select a month to filter by.')
     while True:
         try:
@@ -48,7 +49,6 @@ def filters():
                 print('Not a valid input.')
 
     # get user input for day
-    days_list = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
     while True:
         try:
             day = input('Enter a day to filter by or \'all\' for all days:\n').lower()
@@ -77,7 +77,22 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-
+    # load data file into a dataframe
+    df = pd.read_csv(data[city])
+    # extract month and day
+    df['Start Time'] = pd.to_datetime(df['Start Time'])
+    df['month'] = df['Start Time'].dt.month
+    df['day_of_week'] = df['Start Time'].dt.dayofweek
+    # filter by month if applicable
+    if month != 'all':
+        month = month_list.index(month)+1
+        df = df[df['month'] == month]
+    # filter by day of week if applicable
+    if day != 'all':
+        day = days_list.index(day)
+        df = df[df['day_of_week'] == day]
+    
     return df
 
-filters()
+city, month, day = filters()
+load_data(city, month, day)
