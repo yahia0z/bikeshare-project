@@ -28,6 +28,22 @@ def filters():
                 break
             else:
                 print('Not a valid city.')
-    
+    # get user input for month
+    month_list = ['january', 'february', 'march', 'april', 'may', 'june']
+    print('Please select a month to filter by.')
+    while True:
+        try:
+            month = input('Enter one of the first six months or \'all\' for all months:\n').lower()
+        except ValueError:
+            print('Not a valid input.')
+        else:
+            if month in month_list:
+                print('Selected month is: ', month.title())
+                break
+            elif month == 'all':
+                print('No month filter selected')
+                break
+            else:
+                print('Not a valid input.')
             
 filters()
