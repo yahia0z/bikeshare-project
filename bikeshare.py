@@ -98,6 +98,7 @@ def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
+    start_time = time.time()
     # display the most common month
     if month == 'all':
         com_month = month_list[df['month'].mode()[0]-1]
@@ -113,6 +114,8 @@ def time_stats(df):
     # display the most common start hour
     com_hour = df['Start Time'].dt.hour.mode()[0]
     print('The most common hour is {}:00'.format(com_hour))
+    print('\nThis took {} seconds.'.format(time.time() - start_time))
+    print('-'*40)
     
 city, month, day = filters()
 df = load_data(city, month, day)
