@@ -98,5 +98,14 @@ def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
+    # display the most common month
+    if month == 'all':
+        com_month = month_list[df['month'].mode()[0]-1]
+    else:
+        com_month = month
+    print('The most common month is',com_month.title())
+    
+    
 city, month, day = filters()
-load_data(city, month, day)
+df = load_data(city, month, day)
+time_stats(df)
