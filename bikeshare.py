@@ -110,6 +110,9 @@ def time_stats(df):
     else:
         com_day = day
     print('The most common day is',com_day.title())
+    # display the most common start hour
+    com_hour = df['Start Time'].dt.hour.mode()[0]
+    print('The most common hour is {}:00'.format(com_hour))
     
 city, month, day = filters()
 df = load_data(city, month, day)
