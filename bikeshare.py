@@ -98,7 +98,9 @@ def user_stats(df):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
-    
+    # Display counts of user types
+    print('Number of different user types:\n',df['User Type'].value_counts())
 
 city, month, day = filters()
 df = load_data(city, month, day)
+user_stats(df)
