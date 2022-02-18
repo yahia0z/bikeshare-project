@@ -100,11 +100,16 @@ def user_stats(df, city):
     print('\nCalculating User Stats...\n')
     # Display counts of user types
     print('Number of different user types:\n',df['User Type'].value_counts())
-    # Display counts of gender
+    # Display counts of gender and
+    # Display earliest, most recent, and most common year of birth
     if city != 'washington':
         print('\nUsers gender:\n',df['Gender'].value_counts())
+        print('\n The oldest user was born in: ',df['Birth Year'].min())
+        print('The youngest user was born in: ',df['Birth Year'].max())
     else:
-        print('\nGender data is not available for this city.')
+        print('\nGender and birth year data is not available for this city.')
+    
+    
 
 city, month, day = filters()
 df = load_data(city, month, day)
