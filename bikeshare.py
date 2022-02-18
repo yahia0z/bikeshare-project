@@ -98,6 +98,9 @@ def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
-    
+    # display most commonly used start station
+    com_start = df['Start Station'].mode()[0]
+    print('The most commonly used start station is:',com_start)
 city, month, day = filters()
 df = load_data(city, month, day)
+station_stats(df)
