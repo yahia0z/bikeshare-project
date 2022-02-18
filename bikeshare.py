@@ -94,5 +94,10 @@ def load_data(city, month, day):
     
     return df
 
+def station_stats(df):
+    """Displays statistics on the most popular stations and trip."""
+
+    print('\nCalculating The Most Popular Stations and Trip...\n')
+    
 city, month, day = filters()
-load_data(city, month, day)
+df = load_data(city, month, day)
