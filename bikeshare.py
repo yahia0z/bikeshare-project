@@ -110,6 +110,7 @@ def station_stats(df):
     
 # method one for most common trip
 def com_trip_1(df):
+    start_time = time.time()
     trips = []
     trips_df = pd.DataFrame()
     trips_df['start'] = df['Start Station'].copy()
@@ -119,15 +120,18 @@ def com_trip_1(df):
     trips = pd.Series(trips)
     com_trip = trips.mode()[0]
     print('Most common trip is from {} to {}.'.format(com_trip[0], com_trip[1]))
+    print("\nThis took {} seconds.".format(time.time() - start_time))
 
 # method two for most common trip
 def com_trip_2(df):
+    start_time = time.time()
     trips = []
     for i, s in df.iterrows():
         trips.append((s['Start Station'], s['End Station']))
     trips = pd.Series(trips)
     com_trip = trips.mode()[0]
     print('Most common trip is from {} to {}.'.format(com_trip[0], com_trip[1]))
+    print("\nThis took {} seconds.".format(time.time() - start_time))
 
 city, month, day = filters()
 df = load_data(city, month, day)
