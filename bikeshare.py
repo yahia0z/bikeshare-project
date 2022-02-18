@@ -94,5 +94,11 @@ def load_data(city, month, day):
     
     return df
 
+def user_stats(df):
+    """Displays statistics on bikeshare users."""
+
+    print('\nCalculating User Stats...\n')
+    
+
 city, month, day = filters()
-load_data(city, month, day)
+df = load_data(city, month, day)
