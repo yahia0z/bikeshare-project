@@ -98,6 +98,7 @@ def user_stats(df, city):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
+    start_time = time.time()
     # Display counts of user types
     print('Number of different user types:\n',df['User Type'].value_counts())
     # Display counts of gender and
@@ -108,7 +109,7 @@ def user_stats(df, city):
         print('The youngest user was born in: ',df['Birth Year'].max())
     else:
         print('\nGender and birth year data is not available for this city.')
-    
+    print("\nThis took {} seconds.".format(time.time() - start_time))
     
 
 city, month, day = filters()
