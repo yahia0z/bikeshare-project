@@ -101,6 +101,9 @@ def station_stats(df):
     # display most commonly used start station
     com_start = df['Start Station'].mode()[0]
     print('The most commonly used start station is:',com_start)
+    # display most commonly used end station
+    com_end = df['End Station'].mode()[0]
+    print('The most commonly used end station is:',com_end)
 city, month, day = filters()
 df = load_data(city, month, day)
 station_stats(df)
