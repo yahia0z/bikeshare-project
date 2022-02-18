@@ -105,7 +105,8 @@ def station_stats(df):
     com_end = df['End Station'].mode()[0]
     print('The most commonly used end station is:',com_end)
     # display most frequent combination of start station and end station trip
-    com_trip_1(df)
+    #com_trip_1(df)
+    com_trip_2(df)
     
 # method one for most common trip
 def com_trip_1(df):
@@ -119,6 +120,14 @@ def com_trip_1(df):
     com_trip = trips.mode()[0]
     print('Most common trip is from {} to {}.'.format(com_trip[0], com_trip[1]))
 
+# method two for most common trip
+def com_trip_2(df):
+    trips = []
+    for i, s in df.iterrows():
+        trips.append((s['Start Station'], s['End Station']))
+    trips = pd.Series(trips)
+    com_trip = trips.mode()[0]
+    print('Most common trip is from {} to {}.'.format(com_trip[0], com_trip[1]))
 
 city, month, day = filters()
 df = load_data(city, month, day)
