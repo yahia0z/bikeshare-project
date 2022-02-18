@@ -94,13 +94,18 @@ def load_data(city, month, day):
     
     return df
 
-def user_stats(df):
+def user_stats(df, city):
     """Displays statistics on bikeshare users."""
 
     print('\nCalculating User Stats...\n')
     # Display counts of user types
     print('Number of different user types:\n',df['User Type'].value_counts())
+    # Display counts of gender
+    if city != 'washington':
+        print('\nUsers gender:\n',df['Gender'].value_counts())
+    else:
+        print('\nGender data is not available for this city.')
 
 city, month, day = filters()
 df = load_data(city, month, day)
-user_stats(df)
+user_stats(df, city)
