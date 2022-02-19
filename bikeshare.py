@@ -99,10 +99,14 @@ def trip_stats(df):
     """Displays statistics on the total and average trip duration."""
 
     print('\nCalculating Trip Duration...\n')
-    # display total travel time
+    # total travel time
     total_time = str(datetime.timedelta(seconds = int(df['Trip Duration'].sum())))
-    print('Total travel time = ', total_time)
+    # average travel time
+    avg_time = str(datetime.timedelta(seconds = int(df['Trip Duration'].mean())))
+    print('Total travel time = {}\nAverage travel time = {}'.format(total_time, avg_time))
     
+    
+
 city, month, day = filters()
 df = load_data(city, month, day)
 trip_stats(df)
