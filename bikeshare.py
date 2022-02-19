@@ -129,8 +129,8 @@ def station_stats(df):
     com_end = df['End Station'].mode()[0]
     print('The most commonly used end station is:',com_end)
     # display most frequent combination of start station and end station trip
-    #com_trip_1(df)
-    com_trip_2(df)
+    com_trip_1(df)
+    #com_trip_2(df)
     
 # method one for most common trip
 def com_trip_1(df):
@@ -183,6 +183,7 @@ def user_stats(df, city):
         print('\nUsers gender:\n',df['Gender'].value_counts())
         print('\n The oldest user was born in: ',df['Birth Year'].min())
         print('The youngest user was born in: ',df['Birth Year'].max())
+        print('The most common year of birth is: ',df['Birth Year'].mode()[0])
     else:
         print('\nGender and birth year data is not available for this city.')
     print("\nThis took {} seconds.".format(time.time() - start_time))
