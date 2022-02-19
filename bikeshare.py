@@ -225,7 +225,7 @@ def disp_raw_data(df):
         i = 0
         print('Displaying first 5 rows of the raw data...\n')
         while (answer == 'y'):
-            print(df.iloc[i:i+5,:-2])
+            print(df.iloc[i:i+5,1:-2])
             i += 5
             if i >= len(df.index):
                 print('No more data to display')
