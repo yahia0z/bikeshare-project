@@ -6,66 +6,90 @@ import numpy as np
 data = { 'chicago': 'chicago.csv',
          'new york city': 'new_york_city.csv',
          'washington': 'washington.csv' }
-month_list = ['january', 'february', 'march', 'april', 'may', 'june']
-days_list = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+cities = {'ch': 'chicago', 'nyc':'new york city', 'w':'washington'}
+months = {'JAN':'january', 'FEB':'february', 'MAR':'march', 'APR':'april', 'MAY':'may', 'JUN':'june'}
+months_list = list(months.keys())
+days = {'MON':'monday', 'TUE':'tuesday', 'WED':'wednesday', 'THU':'thursday', 'FRI':'friday', 'SAT':'saturday', 'SUN':'sunday'}
+days_list = list(days.keys())
 
 def filters():
     """
-    Asks user to specify a city, month, and day to analyze.
+    Asks user to specify a city to analyze, and choose a month/day filter.
 
     Returns:
         (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
+        (str) month - name of the month to filter by, or None to apply no month filter
+        (str) day - name of the day of week to filter by, or None to apply no day filter
     """
-    print('Hello! Let\'s explore some US bikeshare data!\nPlease enter a city to analyze its data.')
+    print('Hello! Let\'s explore some US bikeshare data!\nPlease enter a city to analyze its data.\n')
     # get user input for city
     while True:
         try:
-            city = input('Please select a city from Chicago, New York City, or Washington.\n').lower()
+            city = input('Please select a city from Chicago, New York City, or Washington.\nEnter: CH, NYC, or W\n').lower()
         except ValueError:
             print('Not a valid input. Please select a city from Chicago, New York City, or Washington.')
         else:
-            if (city=='chicago') or (city=='new york city') or (city=='washington'):
-                print('Selected city is: ',city.title())
+            if city in cities.keys():
+                print('Selected city is: ',cities[city].title())
                 break
             else:
                 print('Not a valid city.')
     
-    # get user input for month
-    print('Please select a month to filter by.')
+    # get user input for filter
     while True:
         try:
-            month = input('Enter one of the first six months or \'all\' for all months:\n').lower()
+            filter = input('\nDo you want to apply month or day filters?\nPlease select: M, D, BOTH, NONE\n').lower()
         except ValueError:
             print('Not a valid input.')
         else:
-            if month in month_list:
-                print('Selected month is: ', month.title())
+            if filter == 'm':
+                month = month_filter()
+                day = None
                 break
-            elif month == 'all':
-                print('No month filter selected')
+            elif filter == 'd':
+                month = None
+                day = day_filter()
+                break
+            elif filter == 'both':
+                month = month_filter()
+                day = day_filter()
+                break
+            elif filter == 'none':
+                month = None
+                day = None
+                break
+
+    return city, month, day
+
+def month_filter():
+    # get user input for month
+    while True:
+        try:
+            month = input('Please select a month to filter by: JAN, FEB, MAR, APR, MAY, JUN\n').upper()
+        except ValueError:
+            print('Not a valid input.')
+        else:
+            if month in months.keys():
+                print('Selected month is: ', months[month].title())
                 break
             else:
                 print('Not a valid input.')
+    return month
 
+def day_filter():
     # get user input for day
     while True:
         try:
-            day = input('Enter a day to filter by or \'all\' for all days:\n').lower()
+            day = input('Enter a day to filter by: MON, TUE, WED, THU, FRI, SAT, SUN\n').upper()
         except ValueError:
             print('Not a valid input.')
         else:
-            if day in days_list:
-                print('Selected day is: ', day.title())
-                break
-            elif day == 'all':
-                print('No day filter selected')
+            if day in days.keys():
+                print('Selected day is: ', days[day].title())
                 break
             else:
                 print('Not a valid input.')
-
-    return city, month, day
+    return day
 
 def load_data(city, month, day):
     """
@@ -73,23 +97,23 @@ def load_data(city, month, day):
 
     Args:
         (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
+        (str) month - name of the month to filter by, or None to apply no month filter
+        (str) day - name of the day of week to filter by, or None to apply no day filter
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
     # load data file into a dataframe
-    df = pd.read_csv(data[city])
+    df = pd.read_csv(data[cities[city]])
     # extract month and day
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.dayofweek
     # filter by month if applicable
-    if month != 'all':
-        month = month_list.index(month)+1
+    if month:
+        month = months_list.index(month)+1
         df = df[df['month'] == month]
     # filter by day of week if applicable
-    if day != 'all':
+    if day:
         day = days_list.index(day)
         df = df[df['day_of_week'] == day]
     
@@ -101,16 +125,16 @@ def time_stats(df, month, day):
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
     # display the most common month
-    if month == 'all':
-        com_month = month_list[df['month'].mode()[0]-1]
+    if month:
+        com_month = months[month]
     else:
-        com_month = month
+        com_month = months[months_list[df['month'].mode()[0]-1]]
     print('The most common month is',com_month.title())
     # display the most common day of week
-    if day == 'all':
-        com_day = days_list[df['day_of_week'].mode()[0]-1]
+    if day:
+        com_day = days[day]
     else:
-        com_day = day
+        com_day = days[days_list[df['day_of_week'].mode()[0]-1]]
     print('The most common day is',com_day.title())
     # display the most common start hour
     com_hour = df['Start Time'].dt.hour.mode()[0]
@@ -181,7 +205,7 @@ def user_stats(df, city):
     print('Number of different user types:\n',df['User Type'].value_counts())
     # Display counts of gender and
     # Display earliest, most recent, and most common year of birth
-    if city != 'washington':
+    if city != 'w':
         print('\nUsers gender:\n',df['Gender'].value_counts())
         print('\n The oldest user was born in: ',df['Birth Year'].min())
         print('The youngest user was born in: ',df['Birth Year'].max())
