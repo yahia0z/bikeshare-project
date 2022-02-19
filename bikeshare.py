@@ -187,6 +187,8 @@ def user_stats(df, city):
         print('\nGender and birth year data is not available for this city.')
     print("\nThis took {} seconds.".format(time.time() - start_time))
     
+def main():
+    """Calls the different functions and allows for restarting the program."""
 
 city, month, day = filters()
 df = load_data(city, month, day)
@@ -194,3 +196,6 @@ time_stats(df)
 station_stats(df)
 trip_stats(df)
 user_stats(df, city)
+
+if __name__ == "__main__":
+	main()
