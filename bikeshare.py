@@ -94,5 +94,11 @@ def load_data(city, month, day):
     
     return df
 
+def trip_stats(df):
+    """Displays statistics on the total and average trip duration."""
+
+    print('\nCalculating Trip Duration...\n')
+    
 city, month, day = filters()
-load_data(city, month, day)
+df = load_data(city, month, day)
+trip_stats(df)
