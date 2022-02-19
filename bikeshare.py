@@ -116,7 +116,7 @@ def time_stats(df, month, day):
     com_hour = df['Start Time'].dt.hour.mode()[0]
     print('The most common hour is {}:00'.format(com_hour))
     print('\nThis took {} seconds.'.format(time.time() - start_time))
-    print('-'*40)
+    print('-'*50)
     
 def station_stats(df):
     """Displays statistics on the most popular stations and trip."""
@@ -131,6 +131,7 @@ def station_stats(df):
     # display most frequent combination of start station and end station trip
     com_trip_1(df)
     #com_trip_2(df)
+    print('-'*50)
     
 # method one for most common trip
 def com_trip_1(df):
@@ -168,6 +169,7 @@ def trip_stats(df):
     avg_time = str(datetime.timedelta(seconds = int(df['Trip Duration'].mean())))
     print('Total travel time = {}\nAverage travel time = {}'.format(total_time, avg_time))
     print("\nThis took {} seconds.".format(time.time() - start_time))
+    print('-'*50)
     
 
 def user_stats(df, city):
@@ -187,6 +189,7 @@ def user_stats(df, city):
     else:
         print('\nGender and birth year data is not available for this city.')
     print("\nThis took {} seconds.".format(time.time() - start_time))
+    print('-'*50)
 
 def disp_raw_data(df):
     """Displays the row data depending on the user's choice."""
