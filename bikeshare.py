@@ -117,6 +117,46 @@ def time_stats(df):
     print('\nThis took {} seconds.'.format(time.time() - start_time))
     print('-'*40)
     
+def station_stats(df):
+    """Displays statistics on the most popular stations and trip."""
+
+    print('\nCalculating The Most Popular Stations and Trip...\n')
+    # display most commonly used start station
+    com_start = df['Start Station'].mode()[0]
+    print('The most commonly used start station is:',com_start)
+    # display most commonly used end station
+    com_end = df['End Station'].mode()[0]
+    print('The most commonly used end station is:',com_end)
+    # display most frequent combination of start station and end station trip
+    #com_trip_1(df)
+    com_trip_2(df)
+    
+# method one for most common trip
+def com_trip_1(df):
+    start_time = time.time()
+    trips = []
+    trips_df = pd.DataFrame()
+    trips_df['start'] = df['Start Station'].copy()
+    trips_df['end'] = df['End Station'].copy()
+    for start, end in zip(trips_df.start, trips_df.end):
+        trips.append((start, end))
+    trips = pd.Series(trips)
+    com_trip = trips.mode()[0]
+    print('Most common trip is from {} to {}.'.format(com_trip[0], com_trip[1]))
+    print("\nThis took {} seconds.".format(time.time() - start_time))
+
+# method two for most common trip
+def com_trip_2(df):
+    start_time = time.time()
+    trips = []
+    for i, s in df.iterrows():
+        trips.append((s['Start Station'], s['End Station']))
+    trips = pd.Series(trips)
+    com_trip = trips.mode()[0]
+    print('Most common trip is from {} to {}.'.format(com_trip[0], com_trip[1]))
+    print("\nThis took {} seconds.".format(time.time() - start_time))
+
 city, month, day = filters()
 df = load_data(city, month, day)
 time_stats(df)
+station_stats(df)
