@@ -190,7 +190,23 @@ def user_stats(df, city):
 
 def disp_raw_data(df):
     """Displays the row data depending on the user's choice."""
-    
+    # adjust dataframe index
+    df.index = list(range(0, len(df.index)))
+    # get user response and display data
+    answer = input('\nWould you like to see the raw data? Enter Y or N: ').lower()
+    if answer == 'y':
+        i = 0
+        print('Displaying first 5 rows of the raw data...\n')
+        while (answer == 'y'):
+            print(df.iloc[i:i+5,:-2])
+            i += 5
+            if i >= len(df.index):
+                print('No more data to display')
+                break
+            answer = input('\nWould you like to see more raw data? Enter Y or N:').lower()
+            if answer == 'y':
+                print('Displaying the next 5 rows of the raw data...\n')
+
 def main():
     """Calls the different functions and allows for restarting the program."""
     while True:
