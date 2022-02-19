@@ -187,6 +187,9 @@ def user_stats(df, city):
     else:
         print('\nGender and birth year data is not available for this city.')
     print("\nThis took {} seconds.".format(time.time() - start_time))
+
+def disp_raw_data(df):
+    """Displays the row data depending on the user's choice."""
     
 def main():
     """Calls the different functions and allows for restarting the program."""
@@ -197,6 +200,7 @@ def main():
         station_stats(df)
         trip_stats(df)
         user_stats(df, city)
+        disp_raw_data(df)
         restart = input('\nWould you like to restart? Enter Y or N.\n')
         if restart.lower() != 'y':
             break  
