@@ -189,13 +189,18 @@ def user_stats(df, city):
     
 def main():
     """Calls the different functions and allows for restarting the program."""
+    while True:
+        city, month, day = filters()
+        df = load_data(city, month, day)
+        time_stats(df)
+        station_stats(df)
+        trip_stats(df)
+        user_stats(df, city)
+        restart = input('\nWould you like to restart? Enter Y or N.\n')
+        if restart.lower() != 'y':
+            break  
 
-city, month, day = filters()
-df = load_data(city, month, day)
-time_stats(df)
-station_stats(df)
-trip_stats(df)
-user_stats(df, city)
+
 
 if __name__ == "__main__":
 	main()
